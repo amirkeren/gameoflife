@@ -1,13 +1,20 @@
 package com.amir.gol;
 
 import java.awt.BorderLayout;
+import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.image.BufferedImage;
 import java.util.Date;
 import java.util.Timer;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -40,10 +47,12 @@ public class GUI extends JFrame
 	{
 		//initialize GUI components
 		final Timer timer = new Timer();
-		this.setTitle("Game Of Life");
+		this.setTitle("Conway's Game Of Life");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.pack();
 		this.setLocation(200, 200);
+		ImageIcon icon = new ImageIcon(getClass().getResource("/res/flower.png"));
+		this.setIconImage(icon.getImage());
 		//the amount of time in miliseconds between each turn
 		speed = 1000;
 		JPanel mainPanel = new JPanel(new BorderLayout());
@@ -78,7 +87,13 @@ public class GUI extends JFrame
         rightButtonPanel.add(vbar, BorderLayout.EAST);
 		buttonPanel.add(leftButtonPanel, BorderLayout.WEST);
 		buttonPanel.add(rightButtonPanel, BorderLayout.EAST);
-		JPanel gridPanel = new JPanel();
+		BufferedImage image = null;
+		try 
+		{
+		    image = ImageIO.read(getClass().getResource("/res/grass.jpg"));
+		} 
+		catch (Exception e) {}
+		JPanel gridPanel = new IPanel(image);
 		GridLayout grid = new GridLayout(boardSize, boardSize);
 		gridPanel.setLayout(grid);
 		//set neighbors for each cell
@@ -127,5 +142,43 @@ public class GUI extends JFrame
         this.setContentPane(mainPanel);
         this.setSize(500, 500);
 		this.setVisible(true);
+	}
+}
+
+class IPanel extends JPanel 
+{
+	
+	private static final long serialVersionUID = -8805976810240092811L;
+	private Image imageOrg = null;
+	
+	private Image image = null;
+	{
+	    addComponentListener(new ComponentAdapter() 
+	    {
+	        @Override
+	        public void componentResized(final ComponentEvent e) 
+	        {
+	            final int w = IPanel.this.getWidth();
+	            final int h = IPanel.this.getHeight();
+	            image = w > 0 && h > 0 ? imageOrg.getScaledInstance(w, h, Image.SCALE_SMOOTH) : imageOrg;
+	            IPanel.this.repaint();
+	        }
+	    });
+	}
+
+	public IPanel(final Image i) 
+	{
+	    imageOrg = i;
+	    image = i;
+	}
+
+	@Override
+	public void paintComponent(final Graphics g) 
+	{
+	    super.paintComponent(g);
+	    if (image != null)
+	    {
+	        g.drawImage(image, 0, 0, null);
+	    }
 	}
 }

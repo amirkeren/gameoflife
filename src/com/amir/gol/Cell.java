@@ -1,9 +1,10 @@
 package com.amir.gol;
 
-import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 /**
@@ -22,6 +23,8 @@ public class Cell extends JButton
 	private boolean alive;
 	private ArrayList<Cell> neighbors;
 	private ArrayList<Cell> neighborsBackup;
+	private ImageIcon aliveIcon = null;
+	private ImageIcon deadIcon = null;
 	
 	/**
 	 * Cell Constructor
@@ -51,6 +54,32 @@ public class Cell extends JButton
 	            }
 	        }
 	    });
+		setOpaque(false);
+		setContentAreaFilled(false);
+		setBorderPainted(false);
+	}
+	
+	/**
+	 * Uses to load the images for the button
+	 *
+	 * @author Amir Keren, Fabruary 2014
+	 */
+	public void loadImage()
+	{
+		if (aliveIcon == null)
+		{
+			aliveIcon = new ImageIcon(getClass().getResource("/res/flower.png"));
+			Image img = aliveIcon.getImage();
+			Image newimg = img.getScaledInstance(getPreferredSize().width, getPreferredSize().height, java.awt.Image.SCALE_SMOOTH);  
+			aliveIcon = new ImageIcon(newimg);
+		}
+		if (deadIcon == null)
+		{
+			deadIcon = new ImageIcon(getClass().getResource("/res/deadflower.jpg"));
+			Image img = deadIcon.getImage();
+			Image newimg = img.getScaledInstance(getPreferredSize().width, getPreferredSize().height, java.awt.Image.SCALE_SMOOTH);  
+			deadIcon = new ImageIcon(newimg);
+		}
 	}
 	
 	/**
@@ -173,6 +202,8 @@ public class Cell extends JButton
 				neighbors.add(board[row - 1][column - 1]);
 			}
 		}
+		loadImage();
+		paint();
 	}
 	
 	/**
@@ -215,6 +246,18 @@ public class Cell extends JButton
 		return alive;
 	}
 	
+	public void paint()
+	{
+		if (alive)
+		{
+			setIcon(aliveIcon);
+		}
+		else
+		{
+			setIcon(deadIcon);
+		}
+	}
+	
 	/**
 	 * Kills a living cell or Revives a dead cell
 	 *
@@ -225,10 +268,12 @@ public class Cell extends JButton
 		if (alive)
 		{
 			kill();
+			setIcon(deadIcon);
 		}
 		else
 		{
 			revive();
+			setIcon(aliveIcon);
 		}
 	}
 	
@@ -240,7 +285,6 @@ public class Cell extends JButton
 	public void kill()
 	{
 		alive = false;
-		this.setBackground(Color.white);
 	}
 	
 	/**
@@ -251,7 +295,6 @@ public class Cell extends JButton
 	public void revive()
 	{
 		alive = true;
-		this.setBackground(Color.black);
 	}
 	
 	/**
@@ -296,4 +339,3 @@ public class Cell extends JButton
 	}
 	
 }
-
