@@ -50,7 +50,8 @@ public class GUI extends JFrame
 		this.setTitle("Conway's Game Of Life");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.pack();
-		this.setLocation(200, 200);
+		this.setResizable(false);
+		this.setLocation(300, 200);
 		ImageIcon icon = new ImageIcon(getClass().getResource("/res/flower.png"));
 		this.setIconImage(icon.getImage());
 		//the amount of time in miliseconds between each turn
@@ -130,10 +131,23 @@ public class GUI extends JFrame
 					guiThread.cancel();
 					guiThread = new GUIThread(board, boardSize, step, button);
 				}
-				else
+				else if (button.getText().equals("Resume"))
 				{
 					button.setText("Pause");
 					timer.scheduleAtFixedRate(guiThread, new Date(), speed);
+				}
+				else
+				{
+					guiThread.cancel();
+					button.setText("Start");
+					step.setText("Current Step - 0");
+					for (int row = 0; row < boardSize; row++)
+					{
+						for (int column = 0; column < boardSize; column++)
+						{
+							board[row][column].restart(board);
+						}			
+					}
 				}
 			}
 		});
@@ -182,3 +196,4 @@ class IPanel extends JPanel
 	    }
 	}
 }
+

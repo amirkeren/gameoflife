@@ -104,9 +104,15 @@ public class GUIThread extends TimerTask
 		if (performMove() == true)
 		{
 			button.doClick();
-			button.setEnabled(false);
-			button.setText("Done");
-			step.setText("Game Over after " + currentStep + " steps");
+			button.setText("Clear");
+			if (currentStep == 1)
+			{
+				step.setText("Game Over after " + currentStep + " step");
+			}
+			else
+			{
+				step.setText("Game Over after " + currentStep + " steps");
+			}
 			return;
 		}
 		restoreNeighbors();
@@ -114,3 +120,5 @@ public class GUIThread extends TimerTask
 		step.setText("Current Step - " + currentStep.toString());
 	}
 }
+
+
