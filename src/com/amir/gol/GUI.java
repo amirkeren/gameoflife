@@ -140,7 +140,7 @@ public class GUI extends JFrame
 		mainPanel.add(buttonPanel, BorderLayout.NORTH);
         mainPanel.add(gridPanel, BorderLayout.CENTER);
         this.setContentPane(mainPanel);
-        this.setSize(500, 500);
+        this.setSize(700, 700);
 		this.setVisible(true);
 	}
 }

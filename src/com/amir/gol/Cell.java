@@ -70,14 +70,14 @@ public class Cell extends JButton
 		{
 			aliveIcon = new ImageIcon(getClass().getResource("/res/flower.png"));
 			Image img = aliveIcon.getImage();
-			Image newimg = img.getScaledInstance(getPreferredSize().width, getPreferredSize().height, java.awt.Image.SCALE_SMOOTH);  
+			Image newimg = img.getScaledInstance(getPreferredSize().width, getPreferredSize().height * 2, java.awt.Image.SCALE_SMOOTH);  
 			aliveIcon = new ImageIcon(newimg);
 		}
 		if (deadIcon == null)
 		{
-			deadIcon = new ImageIcon(getClass().getResource("/res/deadflower.jpg"));
+			deadIcon = new ImageIcon(getClass().getResource("/res/deadflower.png"));
 			Image img = deadIcon.getImage();
-			Image newimg = img.getScaledInstance(getPreferredSize().width, getPreferredSize().height, java.awt.Image.SCALE_SMOOTH);  
+			Image newimg = img.getScaledInstance(getPreferredSize().width, getPreferredSize().height * 2, java.awt.Image.SCALE_SMOOTH);  
 			deadIcon = new ImageIcon(newimg);
 		}
 	}
