@@ -47,7 +47,7 @@ public class GUI extends JFrame
 	{
 		//initialize GUI components
 		final Timer timer = new Timer();
-		this.setTitle("Conway's Game Of Life Example");
+		this.setTitle("Conway's Game Of Life");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.pack();
 		this.setResizable(false);
