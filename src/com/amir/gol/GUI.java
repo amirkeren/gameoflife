@@ -62,7 +62,7 @@ public class GUI extends JFrame
 		JPanel rightButtonPanel = new JPanel(new BorderLayout());
 		buttonPanel.setSize(500, 100);
 		leftButtonPanel.setSize(300, 100);
-		rightButtonPanel.setSize(200, 100);
+		rightButtonPanel.setSize(210, 100);
 		final JButton button = new JButton("Start");
 		leftButtonPanel.add(button, BorderLayout.WEST);
 		final JLabel step = new JLabel("Current Step - 0");
