@@ -51,7 +51,7 @@ public class GUI extends JFrame
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.pack();
 		this.setResizable(false);
-		this.setLocation(300, 200);
+		this.setLocation(300, 250);
 		ImageIcon icon = new ImageIcon(getClass().getResource("/res/flower.png"));
 		this.setIconImage(icon.getImage());
 		//the amount of time in miliseconds between each turn
